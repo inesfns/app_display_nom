@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: myservice
+  
 spec:
   ports:
     - nodePort: 31280
@@ -12,3 +13,28 @@ spec:
     app: myservice
   type: NodePort
   
+  
+  
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: myservice
+
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - myservice-gateway
+  http:
+    - match:
+        - uri:
+            prefix: "/myserv/"
+     
+      rewrite:
+        uri: "/"
+      route:
+        - destination:
+            port:
+              number: 80
+            host: myservice.default.svc.cluster.local    

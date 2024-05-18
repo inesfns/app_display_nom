@@ -13,7 +13,12 @@ spec:
         app: myservice
     spec:
       containers:
-        - image: efrei/myservice:1
+        - image: 19055919/myservice:1
           imagePullPolicy: IfNotPresent
           name: myservice
       restartPolicy: Always
+      
+      
+      
+      
+   
